@@ -27,6 +27,7 @@ import migrations from './model/migrations';
 // navigation
 import {AppNavigator} from './app/navigation';
 import Post from './model/posts';
+import Contact from './model/contacts';
 
 function App(): JSX.Element {
   const adapter = new SQLiteAdapter({
@@ -41,7 +42,7 @@ function App(): JSX.Element {
 
   const database = new Database({
     adapter,
-    modelClasses: [Post],
+    modelClasses: [Post, Contact],
   });
 
   return (
