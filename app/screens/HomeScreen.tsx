@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 
 // components
 import {UIContainer, UITextView} from '../components';
+import {Database} from '@nozbe/watermelondb';
 
 const HomeScreen = () => {
   return (
