@@ -7,9 +7,6 @@ import {RouteProp} from '@react-navigation/native';
 // components
 import {UIContainer, UITextView, UIFAB} from '../components';
 
-// navigation
-import {Routes} from '../navigation';
-
 // constants
 import {STYLES, ICONS, COLORS} from '../constants';
 
@@ -19,23 +16,20 @@ import ContactDAO from '../db/dao/contactsDAO';
 // icons
 const {AntDesignIcon} = ICONS;
 
-const HomeScreen = ({
+const NewContactScreen = ({
   navigation,
   route,
-  contacts,
 }: {
   navigation: NativeStackNavigationProp<any, any>;
   route: RouteProp<any, any>;
-  contacts: any;
 }) => {
-  console.log(contacts);
   return (
     <UIContainer>
       <UITextView text="Home page" />
 
       <UIFAB
         icon={<AntDesignIcon name="plus" color={COLORS.white} size={20} />}
-        onClick={() => navigation.navigate(Routes.newContact)}
+        onClick={() => console.log('')}
       />
     </UIContainer>
   );
@@ -47,4 +41,4 @@ const enhance = withObservables([], () => ({
   contacts: ContactDAO.observeContacts(),
 }));
 
-export default enhance(HomeScreen);
+export default NewContactScreen;
