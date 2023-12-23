@@ -3,7 +3,9 @@ import {StyleSheet} from 'react-native';
 
 // components
 import {UIContainer, UITextView} from '../components';
-import {Database} from '@nozbe/watermelondb';
+
+// constants
+import {STYLES} from '../constants';
 
 const HomeScreen = () => {
   return (

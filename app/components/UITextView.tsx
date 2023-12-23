@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TextProps, TextStyle} from 'react-native';
+import {COLORS} from '../constants';
 
 interface propTypes extends TextProps {
   text: String;
@@ -15,7 +16,9 @@ const UITextView = (props: propTypes) => {
 };
 
 const styles = StyleSheet.create({
-  textStyle: {},
+  textStyle: {
+    color: COLORS.black,
+  },
 });
 
 export default UITextView;
