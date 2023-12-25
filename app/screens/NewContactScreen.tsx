@@ -7,6 +7,9 @@ import {RouteProp} from '@react-navigation/native';
 // components
 import {UIContainer, UITextView, UIFAB} from '../components';
 
+// widgets
+import {ContactForm} from '../widgets';
+
 // constants
 import {STYLES, ICONS, COLORS} from '../constants';
 
@@ -25,12 +28,7 @@ const NewContactScreen = ({
 }) => {
   return (
     <UIContainer>
-      <UITextView text="Home page" />
-
-      <UIFAB
-        icon={<AntDesignIcon name="plus" color={COLORS.white} size={20} />}
-        onClick={() => console.log('')}
-      />
+      <ContactForm />
     </UIContainer>
   );
 };
