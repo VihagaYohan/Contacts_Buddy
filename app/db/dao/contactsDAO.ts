@@ -1,5 +1,6 @@
 import database from '../database';
 import Contact from '../../models/Contact';
+import {writer} from '@nozbe/watermelondb/decorators';
 
 // service
 import {addContact} from '../../services/contactsService';

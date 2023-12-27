@@ -1,5 +1,6 @@
 import {Model} from '@nozbe/watermelondb';
-import {field, text} from '@nozbe/watermelondb/decorators';
+import {field, text, writer} from '@nozbe/watermelondb/decorators';
+import {COLLECTIONS} from '../constants';
 
 export default class Contact extends Model {
   static table = 'contacts';

@@ -27,6 +27,11 @@ const initialValues = {
   address: '',
 };
 
+import ContactService from '../db/dao/contactsDAO';
+import Contact from '../db/contacts';
+import database from '../db/database';
+import {addContact} from '../services/contactsService';
+
 const ContactForm = () => {
   const formik = useFormik({
     initialValues: initialValues,
@@ -34,9 +39,9 @@ const ContactForm = () => {
     onSubmit: values => console.log(values),
   });
 
-  const handleSave = (values: any) => {
-    console.log('form data goes here');
-    console.log(values);
+  const handleSave = async (values: any) => {
+    let result = await database.write(async () => await addContact(values));
+    console.log(result);
   };
 
   return (
