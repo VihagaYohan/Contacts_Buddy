@@ -4,6 +4,7 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {withObservables} from '@nozbe/watermelondb/react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -11,13 +12,13 @@ import {RouteProp} from '@react-navigation/native';
 import {useAppSelector, useAppDispatch} from '../store/store';
 
 // components
-import {UIContainer, UITextView, UIFAB} from '../components';
+import {UIContainer, UITextView, UIFAB, UIAlert} from '../components';
 
 // navigation
 import {Routes} from '../navigation';
 
 // constants
-import {STYLES, ICONS, COLORS} from '../constants';
+import {STYLES, ICONS, COLORS, DIMENSION} from '../constants';
 
 // DAO
 import ContactDAO from '../db/dao/contactsDAO';
@@ -25,6 +26,8 @@ import Contact from '../models/Contact';
 
 // icons
 const {AntDesignIcon} = ICONS;
+
+const SIZE = 40;
 
 const HomeScreen = ({
   navigation,
@@ -35,15 +38,30 @@ const HomeScreen = ({
   route: RouteProp<any, any>;
   contacts: any;
 }) => {
-  // console.log(contacts);
+  console.log(contacts);
   const count = useAppSelector(state => state.count.value);
-  console.log(count);
+  // console.log(count);
 
   // render UI
   const ContactItem: ListRenderItem<any> = ({item, index}) => {
+    console.log(item.first_name);
     return (
-      <TouchableOpacity>
-        <UITextView text={item.address} />
+      <TouchableOpacity style={[STYLES.shadow, styles.card]}>
+        <View style={[{...STYLES.flexRow}, {alignItems: 'center'}]}>
+          <View style={styles.iconContainer}>
+            <AntDesignIcon name="user" size={20} color={COLORS.white} />
+          </View>
+
+          <UITextView text={item.getFullName()} textStyle={styles.name} />
+        </View>
+
+        <UITextView text={`Tel: ${item.phone}`} textStyle={styles.phone} />
+
+        <View style={{alignItems: 'flex-end'}}>
+          {item.company && <UITextView text={`Company : ${item.company}`} />}
+          {item.address && <UITextView text={`Address : ${item.address}`} />}
+          {item.email && <UITextView text={`Email : ${item.email}`} />}
+        </View>
       </TouchableOpacity>
     );
   };
@@ -84,7 +102,33 @@ const HomeScreen = ({
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  card: {
+    paddingVertical: DIMENSION.PADDING * 2,
+    paddingHorizontal: DIMENSION.PADDING,
+    marginBottom: DIMENSION.MARGIN,
+    borderRadius: DIMENSION.BORDER_RADIUS,
+    overflow: 'hidden',
+    backgroundColor: COLORS.white,
+  },
+  iconContainer: {
+    width: SIZE,
+    height: SIZE,
+    borderRadius: SIZE / 2,
+    backgroundColor: COLORS.primaryColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  name: {
+    marginLeft: DIMENSION.MARGIN,
+    fontSize: 18,
+  },
+  phone: {
+    marginLeft: SIZE + DIMENSION.MARGIN,
+    color: COLORS.grey.grey600,
+    fontStyle: 'italic',
+  },
+});
 
 const enhance = withObservables([], () => ({
   contacts: ContactDAO.observeContacts(),
