@@ -17,15 +17,19 @@ import {
   View,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import store from './app/store/store';
 
 // navigation
 import {AppNavigator} from './app/navigation';
 
 function App() {
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </Provider>
   );
 }
 
