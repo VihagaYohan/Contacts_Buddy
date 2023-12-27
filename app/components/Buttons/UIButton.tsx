@@ -16,13 +16,17 @@ interface propTypes {
   showLoading?: boolean;
   buttonContainerStyle?: ViewStyle | ViewStyle[];
   buttonTextStyle?: TextStyle | TextStyle[];
+  width?: String;
   onClick: () => void;
 }
 
 const UIButton = (props: propTypes) => {
   return (
     <TouchableOpacity
-      style={{...styles.container, ...props.buttonContainerStyle}}
+      style={{
+        ...styles.container,
+        ...props.buttonContainerStyle,
+      }}
       onPress={() => props.onClick()}
       {...props}>
       <UITextView
@@ -35,7 +39,7 @@ const UIButton = (props: propTypes) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    // width: '100%',
     borderRadius: DIMENSION.BORDER_RADIUS,
     flexDirection: 'row',
     alignItems: 'center',

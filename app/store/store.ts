@@ -3,10 +3,12 @@ import {ReturnKeyType} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import type {TypedUseSelectorHook} from 'react-redux';
 import counterSlice from './slice/counterSlice';
+import contactSlice from './slice/contactSlice';
 
 const Store = configureStore({
   reducer: {
     count: counterSlice,
+    contact: contactSlice,
   },
 });
 

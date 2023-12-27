@@ -11,4 +11,11 @@ export default class Contact extends Model {
   @text('phone') phone;
   @text('email') email;
   @text('address') address;
+
+  getFullName() {
+    let fullName = `${
+      this.firstName[0].toUpperCase() + this.firstName.slice(1) + this.lastName
+    }`;
+    return fullName;
+  }
 }
