@@ -31,11 +31,9 @@ const UpdateContactScreen = ({
 }) => {
   const {contact} = route.params;
 
-  console.log(contact);
-
   return (
     <UIContainer>
-      {/*  <ContactForm buttonTitle="UPDATE" formValues={details} /> */}
+      <ContactForm buttonTitle="UPDATE" formValues={contact} />
     </UIContainer>
   );
 };

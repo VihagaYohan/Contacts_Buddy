@@ -2,6 +2,7 @@ type RootStackParamList = {
   home_screen: undefined;
   details_screen: {
     contact: {
+      id: string;
       firstName: string;
       lastName: string;
       company: string;

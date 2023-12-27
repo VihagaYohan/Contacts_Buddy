@@ -66,6 +66,7 @@ export const updateContact = async (payload: any) => {
     console.log(result);
     return new Response(true);
   } catch (e) {
+    console.log(e);
     return new Response(false, 'Unable to update contact');
   }
 };

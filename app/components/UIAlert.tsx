@@ -2,7 +2,7 @@ import React, {Component, useState, useEffect} from 'react';
 import {StyleSheet, Modal, View, ModalProps} from 'react-native';
 
 // redux
-import {useAppDispatch} from '../store/store';
+import {useAppDispatch, useAppSelector} from '../store/store';
 import {setPass, setFail} from '../store/slice/contactSlice';
 
 // components
@@ -20,12 +20,13 @@ interface propTypes {
 const UIAlert = (props: propTypes) => {
   const [visible, setVisible] = useState<boolean>(true);
   const dispatch = useAppDispatch();
+  const {message} = useAppSelector(state => state.contact);
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={styles.container}>
         <View style={styles.messageContainer}>
-          <UITextView text={props.message} />
+          <UITextView text={message} />
 
           <UIButton
             label="CLOSE"

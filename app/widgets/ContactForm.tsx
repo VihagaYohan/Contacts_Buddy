@@ -78,6 +78,7 @@ const ContactForm = (props: propTypes) => {
       let result = await database.write(
         async () => await updateContact(values),
       );
+      console.log(result);
       if (result.status === true) {
         dispatch(setPass(true));
         dispatch(setMessage('Contact updated successfully'));

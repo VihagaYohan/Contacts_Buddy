@@ -79,6 +79,7 @@ const HomeScreen = ({
   // handle update
   const handleUpdate = async (item: any) => {
     const payload = {
+      id: item.id,
       firstName: item.firstName,
       lastName: item.lastName,
       company: item.company,
