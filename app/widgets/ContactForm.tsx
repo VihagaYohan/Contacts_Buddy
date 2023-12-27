@@ -64,8 +64,10 @@ const ContactForm = (props: propTypes) => {
       console.log(result);
       if (result.status === true) {
         dispatch(setPass(true));
+        dispatch(setMessage(`Contact has been created successfully`));
       } else {
         dispatch(setFail(true));
+        dispatch(setMessage(`Unable to update contact \n Please try again`));
       }
     } catch (e) {
       dispatch(setFail(true));
