@@ -24,11 +24,11 @@ export const contactSlice = createSlice({
     stopLoading: state => {
       state.loadingState = false;
     },
-    setPass: state => {
-      state.pass = true;
+    setPass: (state, action: PayloadAction<boolean>) => {
+      state.pass = action.payload;
     },
-    setFail: state => {
-      state.fail = true;
+    setFail: (state, action: PayloadAction<boolean>) => {
+      state.fail = action.payload;
     },
   },
 });

@@ -1,6 +1,10 @@
 import React, {Component, useState, useEffect} from 'react';
 import {StyleSheet, Modal, View, ModalProps} from 'react-native';
 
+// redux
+import {useAppDispatch} from '../store/store';
+import {setPass, setFail} from '../store/slice/contactSlice';
+
 // components
 import {UIButton, UITextView} from '.';
 
@@ -9,10 +13,12 @@ import {COLORS, DIMENSION} from '../constants';
 
 interface propTypes extends ModalProps {
   message: String;
+  onClick: () => void;
 }
 
 const UIAlert = (props: propTypes) => {
   const [visible, setVisible] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
@@ -27,7 +33,13 @@ const UIAlert = (props: propTypes) => {
               paddingHorizontal: DIMENSION.MARGIN,
               marginVertical: DIMENSION.MARGIN,
             }}
-            onClick={() => setVisible(false)}
+            onClick={() => {
+              setVisible(false); // close modal
+              // set set pass and fail value to false in redux store
+              dispatch(setPass(false));
+              dispatch(setFail(false));
+              props.onClick();
+            }}
           />
         </View>
       </View>
