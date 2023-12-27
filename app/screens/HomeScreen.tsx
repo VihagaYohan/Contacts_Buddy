@@ -162,6 +162,19 @@ const HomeScreen = ({
 
   return (
     <UIContainer>
+      {contacts.length === 0 ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <UITextView
+            text="There are contacts to show"
+            textStyle={{
+              color: COLORS.primaryColor,
+              textAlign: 'center',
+              alignSelf: 'center',
+            }}
+          />
+        </View>
+      ) : null}
+
       <FlatList
         data={contacts}
         keyExtractor={(item, index) => `contact_list_index_${index}`}
