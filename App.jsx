@@ -20,11 +20,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import store from './app/store/store';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import SplashScreen from 'react-native-splash-screen';
 
 // navigation
 import {AppNavigator} from './app/navigation';
 
 function App() {
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      SplashScreen.hide();
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>
