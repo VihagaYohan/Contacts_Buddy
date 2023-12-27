@@ -49,3 +49,23 @@ export const deleteContact = async (id: string) => {
     return new Response(false, 'Unable to delete contact');
   }
 };
+
+// update contacts
+export const updateContact = async (payload: any) => {
+  try {
+    let result = (
+      await database.get(COLLECTIONS.contacts).find(payload.id)
+    ).update((contact: any) => {
+      contact.firstName = payload.firstName;
+      contact.lastName = payload.lastName;
+      contact.company = payload.company;
+      contact.email = payload.email;
+      contact.phone = payload.phone;
+      contact.address = payload.address;
+    });
+    console.log(result);
+    return new Response(true);
+  } catch (e) {
+    return new Response(false, 'Unable to update contact');
+  }
+};
