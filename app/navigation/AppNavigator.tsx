@@ -6,8 +6,9 @@ import {HomeScreen, DetailsScreen, NewContactScreen} from '../screens';
 
 // navigation
 import {Routes} from './';
+import RootStackParamList from './RootParamList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigator = () => {
   return (
@@ -24,7 +25,7 @@ const Navigator = () => {
         name={Routes.details}
         component={DetailsScreen}
         options={{
-          headerTitle: 'CONTACT DETAILS',
+          headerTitle: 'UPDATE CONTACT',
           headerTitleAlign: 'center',
         }}
       />
