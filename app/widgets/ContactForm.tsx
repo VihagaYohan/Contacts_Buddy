@@ -21,7 +21,7 @@ import {useFormik, useFormikContext} from 'formik';
 
 // store
 import {useAppDispatch, useAppSelector} from '../store/store';
-import {setPass, setFail} from '../store/slice/contactSlice';
+import {setPass, setFail, setMessage} from '../store/slice/contactSlice';
 
 // navigation
 import {Routes} from '../navigation';
@@ -39,9 +39,14 @@ const initialValues = {
 import ContactService from '../db/dao/contactsDAO';
 import Contact from '../db/contacts';
 import database from '../db/database';
-import {addContact} from '../services/contactsService';
+import {addContact, updateContact} from '../services/contactsService';
 
-const ContactForm = () => {
+interface propTypes {
+  buttonTitle: String;
+  formValues?: any;
+}
+
+const ContactForm = (props: propTypes) => {
   const dispatch = useAppDispatch();
   const {pass, fail, loadingState} = useAppSelector(state => state.contact);
   const navigation = useNavigation();
@@ -52,6 +57,7 @@ const ContactForm = () => {
     onSubmit: values => console.log(values),
   });
 
+  // function to handle create new contact
   const handleSave = async (values: any) => {
     try {
       let result = await database.write(async () => await addContact(values));
@@ -66,12 +72,33 @@ const ContactForm = () => {
     }
   };
 
+  // function to handle update contact
+  const handleUpdate = async (values: any) => {
+    try {
+      let result = await database.write(
+        async () => await updateContact(values),
+      );
+      if (result.status === true) {
+        dispatch(setPass(true));
+        dispatch(setMessage('Contact updated successfully'));
+      } else {
+        dispatch(setPass(false));
+        dispatch(setMessage(`Unable to update contact \n Please try again`));
+      }
+    } catch (e) {
+      dispatch(setFail(true));
+      dispatch(setMessage('Unable to update contact'));
+    }
+  };
+
   return (
     <View>
       <UIForm
-        initialValues={initialValues}
+        initialValues={
+          props.buttonTitle === 'SAVE' ? initialValues : props.formValues
+        }
         validationSchema={contactSchema}
-        onSubmit={handleSave}>
+        onSubmit={props.buttonTitle === 'SAVE' ? handleSave : handleUpdate}>
         <View>
           <UIFormField placeholder="Enter first name" name="firstName" />
 
@@ -94,7 +121,7 @@ const ContactForm = () => {
           <UIFormField placeholder="Enter address" name="address" />
 
           <UIFormButton
-            label="SAVE"
+            label={props.buttonTitle}
             buttonContainerStyle={styles.button}
             buttonTextStyle={styles.buttonText}
           />

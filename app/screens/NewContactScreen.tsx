@@ -28,7 +28,7 @@ const NewContactScreen = ({
 }) => {
   return (
     <UIContainer>
-      <ContactForm />
+      <ContactForm buttonTitle="SAVE" />
     </UIContainer>
   );
 };

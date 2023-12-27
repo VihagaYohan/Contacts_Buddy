@@ -76,6 +76,20 @@ const HomeScreen = ({
     }
   };
 
+  // handle update
+  const handleUpdate = async (item: any) => {
+    const payload = {
+      firstName: item.firstName,
+      lastName: item.lastName,
+      company: item.company,
+      phone: item.phone,
+      email: item.email,
+      address: item.address,
+    };
+
+    navigation.navigate(Routes.details, {contact: payload});
+  };
+
   // render UI
   const ActionContainer = (props: actionContainerPropTypes) => {
     return (
@@ -97,7 +111,11 @@ const HomeScreen = ({
         renderLeftActions={() => {
           return (
             <ActionContainer backgroundColor={COLORS.primaryColor}>
-              <Pressable style={styles.actionIcon}>
+              <Pressable
+                style={styles.actionIcon}
+                onPress={() => {
+                  handleUpdate(item);
+                }}>
                 <FontAwesomeIcon name="pen" size={20} color={COLORS.white} />
               </Pressable>
             </ActionContainer>
