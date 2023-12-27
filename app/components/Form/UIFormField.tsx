@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TextInputProps, View} from 'react-native';
 import {
   useFormikContext,
   useField,
@@ -14,7 +14,7 @@ import {UITextInput, UITextView, UIFormError} from '../';
 // constants
 import {COLORS, DIMENSION} from '../../constants';
 
-interface propTypes {
+interface propTypes extends TextInputProps {
   placeholder: string;
   name: String;
 }

@@ -2,14 +2,20 @@ import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 
 // components
-import {UIForm, UITextInput, UIFormField} from '../components';
+import {
+  UIForm,
+  UITextInput,
+  UIFormField,
+  UIButton,
+  UIFormButton,
+} from '../components';
 
 // constants
-import {COLORS} from '../constants';
+import {COLORS, DIMENSION} from '../constants';
 
 // form validation
 import {contactSchema} from '../formValidation/formValidations';
-import {useFormik} from 'formik';
+import {useFormik, useFormikContext} from 'formik';
 
 // form initial values
 const initialValues = {
@@ -28,13 +34,17 @@ const ContactForm = () => {
     onSubmit: values => console.log(values),
   });
 
-  const {handleBlur, handleChange} = formik;
+  const handleSave = (values: any) => {
+    console.log('form data goes here');
+    console.log(values);
+  };
+
   return (
     <View>
       <UIForm
         initialValues={initialValues}
         validationSchema={contactSchema}
-        onSubmit={values => console.log(values)}>
+        onSubmit={handleSave}>
         <View>
           <UIFormField placeholder="Enter first name" name="firstName" />
 
@@ -55,12 +65,25 @@ const ContactForm = () => {
           />
 
           <UIFormField placeholder="Enter address" name="address" />
+
+          <UIFormButton
+            label="SAVE"
+            buttonContainerStyle={styles.button}
+            buttonTextStyle={styles.buttonText}
+          />
         </View>
       </UIForm>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    marginVertical: DIMENSION.MARGIN * 2,
+  },
+  buttonText: {
+    fontSize: 16,
+  },
+});
 
 export default ContactForm;

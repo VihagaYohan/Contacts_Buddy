@@ -11,9 +11,10 @@ export let contactSchema = Yup.object().shape({
     .min(2, 'Last name should not be less than 2 characters'),
   company: Yup.string().label('Company'),
   phone: Yup.number()
-    .min(10, 'Contact number should be at least 10 characters long')
-    .max(10, 'Contact number should not be more than 10 characters long')
+    /* .min(10, 'Contact number should be at least 10 characters long')
+    .max(10, 'Contact number should not be more than 10 characters long') */
     .label('Phone number')
     .required(),
+  email: Yup.string().email('E-mail'),
   address: Yup.string().label('Address'),
 });
