@@ -55,6 +55,7 @@ const ContactForm = () => {
   const handleSave = async (values: any) => {
     try {
       let result = await database.write(async () => await addContact(values));
+      console.log(result);
       if (result.status === true) {
         dispatch(setPass(true));
       } else {
@@ -101,6 +102,7 @@ const ContactForm = () => {
           {pass && (
             <UIAlert
               message="New contact has been create successfully"
+              isConfirmation={false}
               onClick={() => navigation.goBack()}
             />
           )}
@@ -108,6 +110,7 @@ const ContactForm = () => {
           {fail && (
             <UIAlert
               message={`Unable to create contact \n Please try again`}
+              isConfirmation={false}
               onClick={() => navigation.goBack()}
             />
           )}

@@ -11,8 +11,9 @@ import {UIButton, UITextView} from '.';
 // constants
 import {COLORS, DIMENSION} from '../constants';
 
-interface propTypes extends ModalProps {
+interface propTypes {
   message: String;
+  isConfirmation: boolean;
   onClick: () => void;
 }
 
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: DIMENSION.MARGIN * 2,
     paddingVertical: DIMENSION.MARGIN,
     borderRadius: DIMENSION.CARD_BORDER_RADIUS,
+    textAlign: 'center',
   },
 });
 

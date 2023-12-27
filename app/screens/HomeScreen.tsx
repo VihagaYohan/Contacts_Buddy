@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   StyleSheet,
   FlatList,
@@ -14,8 +14,9 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-// store
+// redux
 import {useAppSelector, useAppDispatch} from '../store/store';
+import {setPass, setFail} from '../store/slice/contactSlice';
 
 // components
 import {UIContainer, UITextView, UIFAB, UIAlert} from '../components';
@@ -30,6 +31,9 @@ import {STYLES, ICONS, COLORS, DIMENSION} from '../constants';
 import ContactDAO from '../db/dao/contactsDAO';
 import Contact from '../models/Contact';
 
+// service
+import {deleteContact} from '../services/contactsService';
+
 // icons
 const {AntDesignIcon, FontAwesomeIcon, IoniconIcon} = ICONS;
 
@@ -38,7 +42,6 @@ const SIZE = 40;
 interface actionContainerPropTypes extends ViewProps {
   backgroundColor: ColorValue;
   children: JSX.Element | JSX.Element[];
-  onPress: () => void;
 }
 
 const HomeScreen = ({
@@ -51,8 +54,27 @@ const HomeScreen = ({
   contacts: any;
 }) => {
   // console.log(contacts);
-  const count = useAppSelector(state => state.count.value);
+  const {pass, fail, loadingState} = useAppSelector(state => state.contact);
+  const dispatch = useAppDispatch();
+  const [confirmation, setConfirmation] = useState<boolean>(false);
+  const [contactId, setContactId] = useState<string>();
+
   // console.log(count);
+
+  // handle delete
+  const handleDelete = async (id: string) => {
+    try {
+      let result = await deleteContact(id);
+      console.log(result);
+      if (result.status === true) {
+        dispatch(setPass(true));
+      } else {
+        dispatch(setFail(false));
+      }
+    } catch (e) {
+      dispatch(setPass(false));
+    }
+  };
 
   // render UI
   const ActionContainer = (props: actionContainerPropTypes) => {
@@ -74,9 +96,7 @@ const HomeScreen = ({
         overshootRight={false}
         renderLeftActions={() => {
           return (
-            <ActionContainer
-              backgroundColor={COLORS.primaryColor}
-              onPress={() => console.log()}>
+            <ActionContainer backgroundColor={COLORS.primaryColor}>
               <Pressable style={styles.actionIcon}>
                 <FontAwesomeIcon name="pen" size={20} color={COLORS.white} />
               </Pressable>
@@ -85,10 +105,12 @@ const HomeScreen = ({
         }}
         renderRightActions={() => {
           return (
-            <ActionContainer
-              backgroundColor={COLORS.red.red700}
-              onPress={() => console.log()}>
-              <Pressable style={styles.actionIcon}>
+            <ActionContainer backgroundColor={COLORS.red.red700}>
+              <Pressable
+                style={styles.actionIcon}
+                onPress={() => {
+                  handleDelete(item.id);
+                }}>
                 <IoniconIcon
                   name="trash-sharp"
                   size={20}
