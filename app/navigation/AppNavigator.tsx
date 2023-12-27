@@ -11,10 +11,31 @@ const Stack = createNativeStackNavigator();
 
 const Navigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name={Routes.home} component={HomeScreen} />
-      <Stack.Screen name={Routes.details} component={DetailsScreen} />
-      <Stack.Screen name={Routes.newContact} component={NewContactScreen} />
+    <Stack.Navigator screenOptions={{headerShown: true}}>
+      <Stack.Screen
+        name={Routes.home}
+        component={HomeScreen}
+        options={{
+          headerTitle: 'CONTACTS BUDDY',
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name={Routes.details}
+        component={DetailsScreen}
+        options={{
+          headerTitle: 'CONTACT DETAILS',
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name={Routes.newContact}
+        component={NewContactScreen}
+        options={{
+          headerTitle: 'NEW CONTACT',
+          headerTitleAlign: 'center',
+        }}
+      />
     </Stack.Navigator>
   );
 };
