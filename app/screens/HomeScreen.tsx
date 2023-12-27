@@ -10,6 +10,7 @@ import {withObservables} from '@nozbe/watermelondb/react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RouteProp} from '@react-navigation/native';
 import {useAppSelector, useAppDispatch} from '../store/store';
+import {SwipeListView} from 'react-native-swipe-list-view';
 
 // components
 import {UIContainer, UITextView, UIFAB, UIAlert} from '../components';
@@ -38,13 +39,12 @@ const HomeScreen = ({
   route: RouteProp<any, any>;
   contacts: any;
 }) => {
-  console.log(contacts);
+  // console.log(contacts);
   const count = useAppSelector(state => state.count.value);
   // console.log(count);
 
   // render UI
   const ContactItem: ListRenderItem<any> = ({item, index}) => {
-    console.log(item.first_name);
     return (
       <TouchableOpacity style={[STYLES.shadow, styles.card]}>
         <View style={[{...STYLES.flexRow}, {alignItems: 'center'}]}>
@@ -68,7 +68,7 @@ const HomeScreen = ({
 
   return (
     <UIContainer>
-      <FlatList
+      <SwipeListView
         data={contacts}
         keyExtractor={(item, index) => `contact_list_index_${index}`}
         showsVerticalScrollIndicator={false}
@@ -92,6 +92,14 @@ const HomeScreen = ({
             }}
           />
         )}
+        renderHiddenItem={(data, rowMap) => (
+          <View style={{backgroundColor: 'red'}}>
+            <UITextView text="LEFT" />
+            <UITextView text="RIGHT" />
+          </View>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
       />
 
       <UIFAB
