@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Formik} from 'formik';
+import {Formik, FormikProps} from 'formik';
 
 interface propTypes {
   initialValues: object;
@@ -14,13 +14,15 @@ const UIForm = ({
   validationSchema,
   children,
   onSubmit,
+  ...props
 }: propTypes) => {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}>
-      {() => <React.Fragment>{children}</React.Fragment>}
+      onSubmit={onSubmit}
+      {...props}>
+      {(props: FormikProps<any>) => <React.Fragment>{children}</React.Fragment>}
     </Formik>
   );
 };

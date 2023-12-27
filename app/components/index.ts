@@ -13,3 +13,4 @@ export {default as UITextInput} from './UITextInput';
 // form
 export {default as UIForm} from './Form/UIForm';
 export {default as UIFormField} from './Form/UIFormField';
+export {default as UIFormError} from './Form/UIFormError';

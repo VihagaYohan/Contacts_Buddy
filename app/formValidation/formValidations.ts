@@ -6,11 +6,14 @@ export let contactSchema = Yup.object().shape({
     .label('First name')
     .min(2, 'First name should not be less than 2 characters')
     .required(),
-  lastName: Yup.string().label('Last name'),
+  lastName: Yup.string()
+    .label('Last name')
+    .min(2, 'Last name should not be less than 2 characters'),
   company: Yup.string().label('Company'),
   phone: Yup.number()
     .min(10, 'Contact number should be at least 10 characters long')
     .max(10, 'Contact number should not be more than 10 characters long')
-    .label('Phone number'),
+    .label('Phone number')
+    .required(),
   address: Yup.string().label('Address'),
 });
